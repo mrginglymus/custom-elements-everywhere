@@ -60,11 +60,12 @@ afterEach(function () {
   });
 });
 
-function render(Component) {
+function render(Component, props = {}) {
   let root;
   act(() => {
     reactRoot.render(
       <Component
+        {...props}
         ref={(current) => {
           root = current;
         }}
@@ -117,6 +118,9 @@ const renderers = {
       });
     }
     return { wc, click }
+  },
+  renderComponentWithAttribute(attribute, value) {
+    return render(ComponentWithoutChildren, {[attribute]: value})
   }
 }
 

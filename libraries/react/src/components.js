@@ -25,7 +25,7 @@ export class ComponentWithoutChildren extends Component {
   render() {
     return (
       <div>
-        <ce-without-children ref={(el) => this.wc = el}></ce-without-children>
+        <ce-without-children ref={(el) => this.wc = el} {...this.props}></ce-without-children>
       </div>
     );
   }
@@ -35,7 +35,7 @@ export class ComponentWithChildren extends Component {
   render() {
     return (
       <div>
-        <ce-with-children ref={(el) => this.wc = el}></ce-with-children>
+        <ce-with-children ref={(el) => this.wc = el} {...this.props}></ce-with-children>
       </div>
     );
   }
