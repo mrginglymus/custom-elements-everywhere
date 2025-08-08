@@ -37,6 +37,19 @@ export const ComponentWithChildren = defineComponent({
   `
 });
 
+export const ComponentWithAttribute = (attribute, value) => ({
+  template: `
+    <div>
+      <ce-without-children id="wc" :${attribute}="${value}" ></ce-without-children>
+    </div>
+  `,
+  data() {
+    return {
+      [attribute]: value
+    }
+  }
+})
+
 export const ComponentWithChildrenRerender = defineComponent({
   template: `
     <div>

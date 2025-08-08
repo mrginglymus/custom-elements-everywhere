@@ -22,7 +22,9 @@ import {
   ComponentWithChildrenRerender,
   ComponentWithDifferentViews,
   ComponentWithProperties,
-  ComponentWithImperativeEvent, ComponentWithDeclarativeEvent,
+  ComponentWithImperativeEvent,
+  ComponentWithDeclarativeEvent,
+  ComponentWithAttribute,
 } from "./src/components";
 
 // Setup the test harness. This will get cleaned out with every test.
@@ -48,8 +50,8 @@ afterEach(function () {
 import basicTests from 'basic-tests';
 import advancedTests from 'advanced-tests';
 
-function render(Component) {
-  const app = createApp(Component)
+function render(Component, props) {
+  const app = createApp(Component, props)
   app.config.compilerOptions.isCustomElement = isCustomElement;
   app.mount(scratch);
   const wc = scratch.querySelector("#wc");
@@ -98,6 +100,9 @@ const renderers = {
       await nextTick();
     }
     return { wc, click }
+  },
+  renderComponentWithAttribute(attribute, value) {
+    return render(ComponentWithAttribute(attribute, value));
   }
 }
 

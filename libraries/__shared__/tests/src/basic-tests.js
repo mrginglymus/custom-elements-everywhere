@@ -30,6 +30,7 @@ export default function (
     renderComponentWithDifferentViews = skip,
     renderComponentWithProperties = skip,
     renderComponentWithImperativeEvent = skip,
+    renderComponentWithAttribute = skip,
   }) {
 
   describe('basic support', function () {
@@ -100,6 +101,20 @@ export default function (
         const { wc } = await renderComponentWithProperties.call(this);
         let data = wc.str || wc.getAttribute('str')
         expect(data).to.eql('custom')
+      })
+
+      it('renders tri-state bools correctly (false)', async function () {
+        this.weight = 3
+        const { wc } = await renderComponentWithAttribute.call(this, 'aria-selected', false);
+        expect(wc.hasAttribute('aria-selected')).to.be.true;
+        expect(wc.getAttribute('aria-selected')).to.eql('false');
+      })
+
+      it('renders tri-state bools correctly (true)', async function () {
+        this.weight = 3
+        const { wc } = await renderComponentWithAttribute.call(this, 'aria-selected', true);
+        expect(wc.hasAttribute('aria-selected')).to.be.true;
+        expect(wc.getAttribute('aria-selected')).to.eql('true');
       })
     })
 
