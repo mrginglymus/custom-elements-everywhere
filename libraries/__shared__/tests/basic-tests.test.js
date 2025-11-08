@@ -16,75 +16,73 @@
  */
 
 import {expect, test} from '@playwright/test';
-import {getPropOrAttr} from './util';
-
-test.beforeEach(async ({page}) => {
-  await page.goto('/react');
-})
+import {each, getPropOrAttr} from './util';
 
 
-test.describe("basic support", () => {
-  test.describe("no children", () => {
-    test("can display a Custom Element with no children", async ({page}) => {
-      await expect(page.locator('#ce-without-children')).toBeAttached();
+each(() => {
+  test.describe("basic support", () => {
+    test.describe("no children", () => {
+      test("can display a Custom Element with no children", async ({page}) => {
+        await expect(page.locator('#ce-without-children')).toBeAttached();
+      });
+
+      test.describe('with children', () => {
+        const expectHasChildren = async (wc) => {
+          await expect(wc.locator('h1')).toHaveText('Test h1');
+          await expect(wc.locator('p')).toHaveText('Test p');
+        }
+
+        test("can display a Custom Element with children in a Shadow Root", async ({page}) => {
+          await expectHasChildren(page.locator('#ce-with-children'))
+        })
+
+        test("can display a Custom Element with children in a Shadow Root and pass in Light DOM children", async ({page}) => {
+          const ce = page.locator('#ce-with-children-renderer');
+          await expectHasChildren(ce);
+          await expect(ce).toHaveText(/2/);
+        })
+
+        test('can display a Custom Element with children in the Shadow DOM and handle hiding and showing the element', async ({page}) => {
+          const ce = page.locator('#ce-with-different-views')
+          const toggle = page.getByRole('button', {name: /toggle views/i});
+
+          await expectHasChildren(ce);
+
+          await toggle.click();
+          await expect(ce).toHaveText(/dummy view/i);
+
+          await toggle.click();
+          await expectHasChildren(ce);
+        })
+      })
     });
 
-    test.describe('with children', () => {
-      const expectHasChildren = async (wc) => {
-        await expect(wc.locator('h1')).toHaveText('Test h1');
-        await expect(wc.locator('p')).toHaveText('Test p');
-      }
+    test.describe('attributes and properties', () => {
+      test("will pass boolean data as either an attribute or a property", async ({page}) => {
+        const ce = page.locator('#ce-with-properties');
+        expect(await getPropOrAttr(ce, 'bool')).toEqual(true)
+      });
 
-      test("can display a Custom Element with children in a Shadow Root", async ({page}) => {
-        await expectHasChildren(page.locator('#ce-with-children'))
-      })
+      test("will pass numeric data as either an attribute or a property", async ({page}) => {
+        const ce = page.locator('#ce-with-properties');
+        expect(parseInt(await getPropOrAttr(ce, 'num'))).toEqual(42)
+      });
 
-      test("can display a Custom Element with children in a Shadow Root and pass in Light DOM children", async ({page}) => {
-        const ce = page.locator('#ce-with-children-renderer');
-        await expectHasChildren(ce);
-        await expect(ce).toHaveText(/2/);
-      })
+      test("will pass string data as either an attribute or a property", async ({page}) => {
+        const ce = page.locator('#ce-with-properties');
+        expect(await getPropOrAttr(ce, 'str')).toEqual("React")
+      });
+    });
 
-      test('can display a Custom Element with children in the Shadow DOM and handle hiding and showing the element', async ({page}) => {
-        const ce = page.locator('#ce-with-different-views')
-        const toggle = page.getByRole('button', {name: /toggle views/i});
-
-        await expectHasChildren(ce);
-
-        await toggle.click();
-        await expect(ce).toHaveText(/dummy view/i);
-
-        await toggle.click();
-        await expectHasChildren(ce);
+    test.describe('events', () => {
+      test("can imperatively listen to a DOM event dispatched by a Custom Element", async ({page}) => {
+        const ce = page.locator('#ce-with-imperative-event');
+        const result = page.locator('#ce-with-imperative-event-handled');
+        await expect(result).toHaveText(/false/i);
+        await ce.click();
+        await expect(result).toHaveText(/true/i);
       })
     })
+
   });
-
-  test.describe('attributes and properties', () => {
-    test("will pass boolean data as either an attribute or a property", async ({page}) => {
-      const ce = page.locator('#ce-with-properties');
-      expect(await getPropOrAttr(ce, 'bool')).toEqual(true)
-    });
-
-    test("will pass numeric data as either an attribute or a property", async ({page}) => {
-      const ce = page.locator('#ce-with-properties');
-      expect(parseInt(await getPropOrAttr(ce, 'num'))).toEqual(42)
-    });
-
-    test("will pass string data as either an attribute or a property", async ({page}) => {
-      const ce = page.locator('#ce-with-properties');
-      expect(await getPropOrAttr(ce, 'str')).toEqual("React")
-    });
-  });
-
-  test.describe('events', () => {
-    test("can imperatively listen to a DOM event dispatched by a Custom Element", async ({page}) => {
-      const ce = page.locator('#ce-with-imperative-event');
-      const result = page.locator('#ce-with-imperative-event-handled');
-      await expect(result).toHaveText(/false/i);
-      await ce.click();
-      await expect(result).toHaveText(/true/i);
-    })
-  })
-
 });

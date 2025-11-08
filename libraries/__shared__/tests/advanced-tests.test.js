@@ -16,62 +16,60 @@
  */
 
 import {expect, test} from '@playwright/test';
-import {getProp} from "./util";
+import {getProp, each} from "./util";
 
-test.beforeEach(async ({page}) => {
-  await page.goto('/react');
-})
+each(() => {
+  test.describe('advanced support', () => {
+    test.describe('attributes and properties', () => {
+      test('will pass array data as a property', async ({page}) => {
+        const ce = page.locator('#ce-with-properties');
+        expect(await getProp(ce, 'arr')).toEqual(['R', 'e', 'a', 'c', 't'])
+      })
 
-test.describe('advanced support', () => {
-  test.describe('attributes and properties', () => {
-    test('will pass array data as a property', async ({page}) => {
-      const ce = page.locator('#ce-with-properties');
-      expect(await getProp(ce, 'arr')).toEqual(['R', 'e', 'a', 'c', 't'])
-    })
+      test('will pass object data as a property', async ({page}) => {
+        const ce = page.locator('#ce-with-properties');
+        expect(await getProp(ce, 'obj')).toEqual({org: "facebook", repo: "react"})
+      })
 
-    test('will pass object data as a property', async ({page}) => {
-      const ce = page.locator('#ce-with-properties');
-      expect(await getProp(ce, 'obj')).toEqual({org: "facebook", repo: "react"})
-    })
+      test("will pass object data to a camelCase-named property", async ({page}) => {
+        const ce = page.locator('#ce-with-properties');
+        expect(await getProp(ce, 'camelCaseObj')).toEqual({label: "passed"})
+      })
+    });
 
-    test("will pass object data to a camelCase-named property", async ({page}) => {
-      const ce = page.locator('#ce-with-properties');
-      expect(await getProp(ce, 'camelCaseObj')).toEqual({label: "passed"})
-    })
-  });
+    test.describe('events', () => {
 
-  test.describe('events', () => {
+      test("can declaratively listen to a lowercase DOM event dispatched by a Custom Element", async ({page}) => {
+        const ce = page.locator('#ce-with-declarative-event');
+        await expect(page.getByText(/lowercase:/)).toHaveText(/false/);
+        await ce.click();
+        await expect(page.getByText(/lowercase:/)).toHaveText(/true/);
+      })
 
-    test("can declaratively listen to a lowercase DOM event dispatched by a Custom Element", async ({page}) => {
-      const ce = page.locator('#ce-with-declarative-event');
-      await expect(page.getByText(/lowercase:/)).toHaveText(/false/);
-      await ce.click();
-      await expect(page.getByText(/lowercase:/)).toHaveText(/true/);
-    })
-
-    test("can declaratively listen to a camelCase DOM event dispatched by a Custom Element", async ({page}) => {
-      const ce = page.locator('#ce-with-declarative-event');
-      await expect(page.getByText(/camelCase:/)).toHaveText(/false/);
-      await ce.click();
-      await expect(page.getByText(/camelCase:/)).toHaveText(/true/);
-    })
-    test("can declaratively listen to a kebab-case DOM event dispatched by a Custom Element", async ({page}) => {
-      const ce = page.locator('#ce-with-declarative-event');
-      await expect(page.getByText(/kebab-case:/)).toHaveText(/false/);
-      await ce.click();
-      await expect(page.getByText(/kebab-case:/)).toHaveText(/true/);
-    })
-    test("can declaratively listen to a CAPScase DOM event dispatched by a Custom Element", async ({page}) => {
-      const ce = page.locator('#ce-with-declarative-event');
-      await expect(page.getByText(/CAPScase:/)).toHaveText(/false/);
-      await ce.click();
-      await expect(page.getByText(/CAPScase:/)).toHaveText(/true/);
-    })
-    test("can declaratively listen to a PascalCase DOM event dispatched by a Custom Element", async ({page}) => {
-      const ce = page.locator('#ce-with-declarative-event');
-      await expect(page.getByText(/PascalCase:/)).toHaveText(/false/);
-      await ce.click();
-      await expect(page.getByText(/PascalCase:/)).toHaveText(/true/);
-    })
-  });
+      test("can declaratively listen to a camelCase DOM event dispatched by a Custom Element", async ({page}) => {
+        const ce = page.locator('#ce-with-declarative-event');
+        await expect(page.getByText(/camelCase:/)).toHaveText(/false/);
+        await ce.click();
+        await expect(page.getByText(/camelCase:/)).toHaveText(/true/);
+      })
+      test("can declaratively listen to a kebab-case DOM event dispatched by a Custom Element", async ({page}) => {
+        const ce = page.locator('#ce-with-declarative-event');
+        await expect(page.getByText(/kebab-case:/)).toHaveText(/false/);
+        await ce.click();
+        await expect(page.getByText(/kebab-case:/)).toHaveText(/true/);
+      })
+      test("can declaratively listen to a CAPScase DOM event dispatched by a Custom Element", async ({page}) => {
+        const ce = page.locator('#ce-with-declarative-event');
+        await expect(page.getByText(/CAPScase:/)).toHaveText(/false/);
+        await ce.click();
+        await expect(page.getByText(/CAPScase:/)).toHaveText(/true/);
+      })
+      test("can declaratively listen to a PascalCase DOM event dispatched by a Custom Element", async ({page}) => {
+        const ce = page.locator('#ce-with-declarative-event');
+        await expect(page.getByText(/PascalCase:/)).toHaveText(/false/);
+        await ce.click();
+        await expect(page.getByText(/PascalCase:/)).toHaveText(/true/);
+      })
+    });
+  })
 })
