@@ -16,16 +16,16 @@
  */
 
 import React, { Component } from 'react';
-import 'ce-without-children';
-import 'ce-with-children';
-import 'ce-with-properties';
-import 'ce-with-event';
+import '#ce-without-children';
+import '#ce-with-children';
+import '#ce-with-properties';
+import '#ce-with-event';
 
 export class ComponentWithoutChildren extends Component {
   render() {
     return (
       <div>
-        <ce-without-children ref={(el) => this.wc = el}></ce-without-children>
+        <ce-without-children id="ce-without-children"></ce-without-children>
       </div>
     );
   }
@@ -35,7 +35,7 @@ export class ComponentWithChildren extends Component {
   render() {
     return (
       <div>
-        <ce-with-children ref={(el) => this.wc = el}></ce-with-children>
+        <ce-with-children id="ce-with-children"></ce-with-children>
       </div>
     );
   }
@@ -56,7 +56,7 @@ export class ComponentWithChildrenRerender extends Component {
     const { count } = this.state;
     return (
       <div>
-        <ce-with-children ref={(el) => this.wc = el}>{count}</ce-with-children>
+        <ce-with-children id="ce-with-children-renderer">{count}</ce-with-children>
       </div>
     );
   }
@@ -66,7 +66,6 @@ export class ComponentWithDifferentViews extends Component {
   constructor () {
     super();
     this.state = { showWC: true };
-    this.dummy = React.createRef();
   }
   toggle() {
     this.setState({ showWC: !this.state.showWC });
@@ -74,11 +73,12 @@ export class ComponentWithDifferentViews extends Component {
   render () {
     const { showWC } = this.state;
     return (
-      <div>
+      <div id="ce-with-different-views">
+        <button onClick={this.toggle.bind(this)}>Toggle views</button>
         {showWC ? (
-          <ce-with-children ref={(el) => this.wc = el}></ce-with-children>
+          <ce-with-children></ce-with-children>
         ) : (
-          <div ref={this.dummy}>Dummy view</div>
+          <div>Dummy view</div>
         )}
       </div>
     );
@@ -97,7 +97,7 @@ export class ComponentWithProperties extends Component {
     };
     return (
       <div>
-        <ce-with-properties ref={(el) => this.wc = el}
+        <ce-with-properties id="ce-with-properties"
           bool={data.bool}
           num={data.num}
           str={data.str}
@@ -123,7 +123,7 @@ export class ComponentWithUnregistered extends Component {
       <div>
         {/* This element doesn't actually exist.
         It's used to test unupgraded behavior. */}
-        <ce-unregistered ref={(el) => this.wc = el}
+        <ce-unregistered id="ce-with-unregistered"
           bool={data.bool}
           num={data.num}
           str={data.str}
@@ -153,8 +153,10 @@ export class ComponentWithImperativeEvent extends Component {
     let state = this.state;
     return (
       <div>
-        <div ref={(el) => this.handled = el}>{state.eventHandled.toString()}</div>
-        <ce-with-event id="wc" ref={(el) => this.wc = el}></ce-with-event>
+        <div id="ce-with-imperative-event-handled" ref={(el) => this.handled = el}>{state.eventHandled.toString()}</div>
+        <ce-with-event id="ce-with-imperative-event" ref={(el) => this.wc = el}>
+          Imperative
+        </ce-with-event>
       </div>
     );
   }
@@ -200,7 +202,7 @@ export class ComponentWithDeclarativeEvent extends Component {
         <div ref={(el) => this.camel = el}>{state.camelHandled.toString()}</div>
         <div ref={(el) => this.caps = el}>{state.capsHandled.toString()}</div>
         <div ref={(el) => this.pascal = el}>{state.pascalHandled.toString()}</div>
-        <ce-with-event id="wc" ref={(el) => this.wc = el}
+        <ce-with-event id="ce-with-declarative-event"
           onlowercaseevent={this.handleLowercaseEvent}
           onkebab-event={this.handleKebabEvent}
           oncamelEvent={this.handleCamelEvent}
