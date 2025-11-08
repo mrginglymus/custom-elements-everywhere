@@ -2,19 +2,24 @@
   "scripts": {
     "build": "wireit"
   },
+  "library_package": "react",
   "library_repo": "facebook/react",
   "devDependencies": {
     "vite": "^7.2.2"
   },
   "dependencies": {
     "react": "^19",
-    "react-dom": "^19"
-  },
-  "imports": {
-    "#*": "../__shared__/webcomponents/src/*"
+    "react-dom": "^19",
+    "wc": "workspace:*"
   },
   "wireit": {
     "build": {
+      "files": [
+        "src"
+      ],
+      "output": [
+        "../__shared__/test/harness/react"
+      ],
       "command": "vite build"
     }
   }

@@ -16,6 +16,12 @@ export default class CEEReporter {
 
   onEnd(result) {
     for (const [framework, results] of Object.entries(this.results)) {
+      const frameworkDir = `../../${framework}`
+
+      const packageJson = JSON.parse(fs.readFileSync(`${frameworkDir}/package.json`, 'utf-8'));
+      const pkg = packageJson.library_package
+      const version = packageJson.dependencies[pkg];
+
       const basicPassed = results['basic support'].passed ?? 0;
       const basicFailed = results['basic support'].failed ?? 0;
       const advancedPassed = results['advanced support'].passed ?? 0;
@@ -25,7 +31,8 @@ export default class CEEReporter {
       const weightedFailed = results.weight.failed ?? 0;
       const totalWeight = weightedPassed + weightedFailed;
 
-      fs.writeFileSync(`../../${framework}/results/results.json`, JSON.stringify({
+      fs.mkdirSync(`${frameworkDir}/results/`, {recursive: true})
+      fs.writeFileSync(`${frameworkDir}/results/results.json`, JSON.stringify({
         summary: {
           success: basicPassed + advancedPassed,
           failed: basicFailed + advancedFailed,
@@ -44,8 +51,13 @@ export default class CEEReporter {
             failed: advancedFailed,
             passed: advancedPassed
           }
+        },
+        library: {
+          name: pkg,
+          version
         }
-      }, null, 2))
+      }, null, 2));
+      fs.writeFileSync(`${frameworkDir}/results/results.html`, 'TODO');
     }
   }
 }

@@ -21,5 +21,8 @@ export default defineConfig({
     stdout: 'ignore',
     stderr: 'pipe'
   },
-  reporter: [['list'], ['./reporter.js']]
+  reporter: [
+    ['list'],
+    ['./reporter.js']
+  ]
 })

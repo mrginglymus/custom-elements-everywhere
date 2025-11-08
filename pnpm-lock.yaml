@@ -659,6 +659,9 @@ importers:
       react-dom:
         specifier: ^19
         version: 19.2.0(react@19.2.0)
+      wc:
+        specifier: workspace:*
+        version: link:../__shared__/webcomponents
     devDependencies:
       vite:
         specifier: ^7.2.2

@@ -16,10 +16,10 @@
  */
 
 import React from 'react';
-import '#ce-without-children';
-import '#ce-with-children';
-import '#ce-with-properties';
-import '#ce-with-event';
+import 'wc/ce-without-children';
+import 'wc/ce-with-children';
+import 'wc/ce-with-properties';
+import 'wc/ce-with-event';
 
 export const ComponentWithoutChildren = () => (
   <div>
