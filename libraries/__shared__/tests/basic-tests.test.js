@@ -16,11 +16,11 @@
  */
 
 import {expect, test} from '@playwright/test';
-import {each, getPropOrAttr} from './util';
+import {each, getPropOrAttr, weight} from './util';
 
 
 each(() => {
-  test.describe("basic support", () => {
+  test.describe("basic support", weight(3), () => {
     test.describe("no children", () => {
       test("can display a Custom Element with no children", async ({page}) => {
         await expect(page.locator('#ce-without-children')).toBeAttached();

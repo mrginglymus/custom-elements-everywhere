@@ -16,10 +16,11 @@
  */
 
 import {expect, test} from '@playwright/test';
-import {getProp, each} from "./util";
+import {getProp, each, weight} from "./util";
+
 
 each(() => {
-  test.describe('advanced support', () => {
+  test.describe('advanced support',  weight(2), () => {
     test.describe('attributes and properties', () => {
       test('will pass array data as a property', async ({page}) => {
         const ce = page.locator('#ce-with-properties');
@@ -37,9 +38,9 @@ each(() => {
       })
     });
 
-    test.describe('events', () => {
+    test.describe('events', weight(1), () => {
 
-      test("can declaratively listen to a lowercase DOM event dispatched by a Custom Element", async ({page}) => {
+      test("can declaratively listen to a lowercase DOM event dispatched by a Custom Element", weight(2), async ({page}) => {
         const ce = page.locator('#ce-with-declarative-event');
         await expect(page.getByText(/lowercase:/)).toHaveText(/false/);
         await ce.click();

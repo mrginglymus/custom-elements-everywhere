@@ -9,6 +9,10 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
   ],
   webServer: {
     command: 'npm run serve',
@@ -16,5 +20,6 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',
     stderr: 'pipe'
-  }
+  },
+  reporter: './reporter.js'
 })

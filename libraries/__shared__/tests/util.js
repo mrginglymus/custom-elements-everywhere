@@ -9,6 +9,10 @@ export const getPropOrAttr = async (ce, name) => {
   return await getProp(ce, name) ?? ce.getAttribute(name);
 }
 
+export const weight = (weight) => ({
+  annotation: {type: 'weight', description: weight}
+})
+
 export const each = (cb) => {
   fs.readdirSync('./harness', {withFileTypes: true}).filter(d => d.isDirectory()).forEach(({name}) => {
     test.describe(name, () => {
