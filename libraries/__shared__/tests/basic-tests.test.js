@@ -16,6 +16,7 @@
  */
 
 import {expect, test} from '@playwright/test';
+import {getPropOrAttr} from './util';
 
 test.beforeEach(async ({page}) => {
   await page.goto('/react');
@@ -60,12 +61,6 @@ test.describe("basic support", () => {
   });
 
   test.describe('attributes and properties', () => {
-    const getPropOrAttr = async (ce, name) => {
-      const prop = await (await (await ce.elementHandle()).getProperty(name)).jsonValue()
-      const attr = ce.getAttribute(name);
-      return prop ?? attr;
-    }
-
     test("will pass boolean data as either an attribute or a property", async ({page}) => {
       const ce = page.locator('#ce-with-properties');
       expect(await getPropOrAttr(ce, 'bool')).toEqual(true)

@@ -197,18 +197,18 @@ export class ComponentWithDeclarativeEvent extends Component {
     let state = this.state;
     return (
       <div>
-        <div ref={(el) => this.lowercase = el}>{state.lowercaseHandled.toString()}</div>
-        <div ref={(el) => this.kebab = el}>{state.kebabHandled.toString()}</div>
-        <div ref={(el) => this.camel = el}>{state.camelHandled.toString()}</div>
-        <div ref={(el) => this.caps = el}>{state.capsHandled.toString()}</div>
-        <div ref={(el) => this.pascal = el}>{state.pascalHandled.toString()}</div>
+        <div ref={(el) => this.lowercase = el}>lowercase: {state.lowercaseHandled.toString()}</div>
+        <div ref={(el) => this.kebab = el}>kebab-case: {state.kebabHandled.toString()}</div>
+        <div ref={(el) => this.camel = el}>camelCase: {state.camelHandled.toString()}</div>
+        <div ref={(el) => this.caps = el}>CAPScase: {state.capsHandled.toString()}</div>
+        <div ref={(el) => this.pascal = el}>PascalCase: {state.pascalHandled.toString()}</div>
         <ce-with-event id="ce-with-declarative-event"
           onlowercaseevent={this.handleLowercaseEvent}
           onkebab-event={this.handleKebabEvent}
           oncamelEvent={this.handleCamelEvent}
           onCAPSevent={this.handleCapsEvent}
           onPascalEvent={this.handlePascalEvent}
-        ></ce-with-event>
+        >Declarative</ce-with-event>
       </div>
     );
   }
