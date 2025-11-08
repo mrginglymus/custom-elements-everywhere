@@ -15,11 +15,11 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run serve',
+    command: 'pnpm http-server harness',
     url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',
     stderr: 'pipe'
   },
-  reporter: './reporter.js'
+  reporter: [['list'], ['./reporter.js']]
 })

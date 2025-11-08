@@ -29,6 +29,10 @@ export default class CEEReporter {
         summary: {
           success: basicPassed + advancedPassed,
           failed: basicFailed + advancedFailed,
+          skipped: 0,
+          error: false,
+          disconnected: false,
+          exitCode: 0,
           score: totalWeight === 0 ? 0 : 100 * weightedPassed / totalWeight,
           basicSupport: {
             total: basicPassed + basicFailed,

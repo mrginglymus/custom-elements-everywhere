@@ -9,56 +9,70 @@ export namespace Components {
     interface ComponentWithChildren {
     }
     interface ComponentWithChildrenRerender {
+        /**
+          * @default 1
+         */
         "count": number;
     }
     interface ComponentWithDeclarativeEvent {
+        /**
+          * @default false
+         */
         "camelHandled": boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "camel-handled"?: boolean;
         "capsHandled": boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "caps-handled"?: boolean;
         "kebabHandled": boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "kebab-handled"?: boolean;
         "lowercaseHandled": boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "lowercase-handled"?: boolean;
         "pascalHandled": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "pascal-handled"?: boolean;
     }
     interface ComponentWithDifferentViews {
-        "showWC": boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default true
          */
-        "show-w-c"?: boolean;
+        "showWC": boolean;
         "toggle": () => Promise<void>;
     }
     interface ComponentWithImperativeEvent {
-        "eventHandled": boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "event-handled"?: boolean;
+        "eventHandled": boolean;
     }
     interface ComponentWithProperties {
+        /**
+          * @default ["S", "t", "e", "n", "c", "i", "l"]
+         */
         "arr": string[];
+        /**
+          * @default true
+         */
         "bool": boolean;
+        /**
+          * @default { label: "passed" }
+         */
         "camelCaseObj": { label: string; };
+        /**
+          * @default 42
+         */
         "num": number;
+        /**
+          * @default { org: "Ionic", repo: "stencil" }
+         */
         "obj": { org: string; repo: string; };
+        /**
+          * @default "Stencil"
+         */
         "str": string;
     }
     interface ComponentWithoutChildren {
@@ -121,55 +135,69 @@ declare namespace LocalJSX {
     interface ComponentWithChildren {
     }
     interface ComponentWithChildrenRerender {
+        /**
+          * @default 1
+         */
         "count"?: number;
     }
     interface ComponentWithDeclarativeEvent {
+        /**
+          * @default false
+         */
         "camelHandled"?: boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "camel-handled"?: boolean;
         "capsHandled"?: boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "caps-handled"?: boolean;
         "kebabHandled"?: boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "kebab-handled"?: boolean;
         "lowercaseHandled"?: boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "lowercase-handled"?: boolean;
         "pascalHandled"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "pascal-handled"?: boolean;
     }
     interface ComponentWithDifferentViews {
-        "showWC"?: boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default true
          */
-        "show-w-c"?: boolean;
+        "showWC"?: boolean;
     }
     interface ComponentWithImperativeEvent {
-        "eventHandled"?: boolean;
         /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+          * @default false
          */
-        "event-handled"?: boolean;
+        "eventHandled"?: boolean;
     }
     interface ComponentWithProperties {
+        /**
+          * @default ["S", "t", "e", "n", "c", "i", "l"]
+         */
         "arr"?: string[];
+        /**
+          * @default true
+         */
         "bool"?: boolean;
+        /**
+          * @default { label: "passed" }
+         */
         "camelCaseObj"?: { label: string; };
+        /**
+          * @default 42
+         */
         "num"?: number;
+        /**
+          * @default { org: "Ionic", repo: "stencil" }
+         */
         "obj"?: { org: string; repo: string; };
+        /**
+          * @default "Stencil"
+         */
         "str"?: string;
     }
     interface ComponentWithoutChildren {
