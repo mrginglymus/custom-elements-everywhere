@@ -15,7 +15,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm http-server harness',
+    command: 'pnpm serve',
     url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',

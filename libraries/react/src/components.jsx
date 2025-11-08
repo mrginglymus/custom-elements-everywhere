@@ -66,9 +66,9 @@ export const ComponentWithProperties = () => {
   const data = {
     bool: true,
     num: 42,
-    str: 'React',
-    arr: ['R', 'e', 'a', 'c', 't'],
-    obj: {org: 'facebook', repo: 'react'},
+    str: 'custom',
+    arr: ['c', 'u', 's', 't', 'o', 'm'],
+    obj: { org: 'webcomponents', repo: 'custom-elements-everywhere' },
     camelCaseObj: {label: "passed"}
   };
   return (
@@ -90,9 +90,9 @@ export const ComponentWithUnregistered = () => {
   const data = {
     bool: true,
     num: 42,
-    str: 'React',
-    arr: ['R', 'e', 'a', 'c', 't'],
-    obj: {org: 'facebook', repo: 'react'}
+    str: 'custom',
+    arr: ['c', 'u', 's', 't', 'o', 'm'],
+    obj: { org: 'webcomponents', repo: 'custom-elements-everywhere' }
   };
   return (
     <div>

@@ -6,6 +6,7 @@
   "license": "ISC",
   "private": true,
   "scripts": {
+    "serve": "http-server harness",
     "test": "wireit"
   },
   "devDependencies": {
@@ -15,7 +16,8 @@
   "wireit": {
     "test": {
       "dependencies": [
-        "../../react:build"
+        "../../react:build",
+        "../../svelte:build"
       ],
       "files": [
         "advanced-tests.test.js",

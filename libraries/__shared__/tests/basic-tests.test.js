@@ -70,7 +70,7 @@ each(() => {
 
       test("will pass string data as either an attribute or a property", async ({page}) => {
         const ce = page.locator('#ce-with-properties');
-        expect(await getPropOrAttr(ce, 'str')).toEqual("React")
+        expect(await getPropOrAttr(ce, 'str')).toEqual("custom")
       });
     });
 

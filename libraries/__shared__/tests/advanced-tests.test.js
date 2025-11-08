@@ -20,16 +20,16 @@ import {getProp, each, weight} from "./util";
 
 
 each(() => {
-  test.describe('advanced support',  weight(2), () => {
+  test.describe('advanced support', weight(2), () => {
     test.describe('attributes and properties', () => {
       test('will pass array data as a property', async ({page}) => {
         const ce = page.locator('#ce-with-properties');
-        expect(await getProp(ce, 'arr')).toEqual(['R', 'e', 'a', 'c', 't'])
+        expect(await getProp(ce, 'arr')).toEqual(['c', 'u', 's', 't', 'o', 'm'])
       })
 
       test('will pass object data as a property', async ({page}) => {
         const ce = page.locator('#ce-with-properties');
-        expect(await getProp(ce, 'obj')).toEqual({org: "facebook", repo: "react"})
+        expect(await getProp(ce, 'obj')).toEqual({org: 'webcomponents', repo: 'custom-elements-everywhere'})
       })
 
       test("will pass object data to a camelCase-named property", async ({page}) => {
