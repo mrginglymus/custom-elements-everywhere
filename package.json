@@ -47,14 +47,14 @@
         "./libraries/omi:build",
         "./libraries/polymer:build",
         "./libraries/preact:build",
+        "./libraries/react:build",
         "./libraries/riot:build",
         "./libraries/skate:build",
         "./libraries/solid:build",
         "./libraries/stencil:build",
         "./libraries/surplus:build",
         "./libraries/svelte:build",
-        "./libraries/vue:build",
-        "./libraries/__shared__/tests:test"
+        "./libraries/vue:build"
       ],
       "output": [
         "docs/libraries"

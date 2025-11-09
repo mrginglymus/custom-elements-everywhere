@@ -3,6 +3,7 @@
     "test": "wireit",
     "build": "wireit"
   },
+  "library_package": "svelte",
   "library_repo": "sveltejs/svelte",
   "devDependencies": {
     "vite": "^7.2.2",
@@ -13,8 +14,35 @@
     "wc": "workspace:*"
   },
   "wireit": {
-    "build": {
+    "compile": {
+      "files": [
+        "index.html",
+        "src",
+        "vite.config.js"
+      ],
+      "output": [
+        "dist"
+      ],
       "command": "vite build"
+    },
+    "test": {
+      "files": ["dist"],
+      "dependencies": [
+        "compile",
+        "../__shared__/tests:test-files"
+      ],
+      "command": "pnpm run --filter tests test",
+      "output": [
+        "results"
+      ],
+      "env": {
+        "CEE_WORKSPACE": "svelte"
+      }
+    },
+    "build": {
+      "dependencies": [
+        "test"
+      ]
     }
   }
 }

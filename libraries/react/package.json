@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "wireit"
+    "build": "wireit",
+    "test": "wireit"
   },
   "library_package": "react",
   "library_repo": "facebook/react",
@@ -13,14 +14,35 @@
     "wc": "workspace:*"
   },
   "wireit": {
-    "build": {
+    "compile": {
       "files": [
-        "src"
+        "index.html",
+        "src",
+        "vite.config.js"
       ],
       "output": [
-        "../__shared__/test/harness/react"
+        "dist"
       ],
       "command": "vite build"
+    },
+    "test": {
+      "files": ["dist"],
+      "dependencies": [
+        "compile",
+        "../__shared__/tests:test-files"
+      ],
+      "command": "pnpm run --filter tests test",
+      "output": [
+        "results"
+      ],
+      "env": {
+        "CEE_WORKSPACE": "react"
+      }
+    },
+    "build": {
+      "dependencies": [
+        "test"
+      ]
     }
   }
 }

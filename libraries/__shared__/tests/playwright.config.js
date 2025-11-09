@@ -7,15 +7,15 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {...devices['Desktop Chrome']},
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {...devices['Desktop Firefox']},
     },
   ],
   webServer: {
-    command: 'pnpm serve',
+    command: `http-server ../../${process.env.CEE_WORKSPACE}/dist/`,
     url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',
@@ -23,6 +23,11 @@ export default defineConfig({
   },
   reporter: [
     ['list'],
+    ['html', {
+      outputFolder: `../../${process.env.CEE_WORKSPACE}/results/`,
+      open: 'never',
+      title: process.env.CEE_WORKSPACE
+    }],
     ['./reporter.js']
   ]
 })

@@ -7,26 +7,21 @@
   "private": true,
   "scripts": {
     "serve": "http-server harness",
-    "test": "wireit"
+    "test": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "http-server": "^14.1.1"
   },
   "wireit": {
-    "test": {
-      "dependencies": [
-        "../../react:build",
-        "../../svelte:build"
-      ],
+    "test-files": {
       "files": [
         "advanced-tests.test.js",
         "basic-tests.test.js",
         "playwright.config.js",
         "reporter.js",
         "utils.js"
-      ],
-      "command": "playwright test"
+      ]
     }
   }
 }
