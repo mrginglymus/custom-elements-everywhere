@@ -1,8 +1,18 @@
+import fs from 'node:fs'
 import {defineConfig, devices} from '@playwright/test';
+
+const ports = fs.readdirSync('../../', {withFileTypes: true})
+  .filter(d => d.isDirectory() && !d.name.startsWith('__'))
+  .reduce((acc, dir, idx) => {
+    acc[dir.name] = 8080 + idx;
+    return acc;
+  }, {})
+
+const workspace = process.env.CEE_WORKSPACE;
 
 export default defineConfig({
   use: {
-    baseURL: 'http://localhost:8080',
+    baseURL: `http://localhost:${ports[workspace]}`,
   },
   projects: [
     {
@@ -15,8 +25,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `http-server ../../${process.env.CEE_WORKSPACE}/dist/`,
-    url: 'http://localhost:8080',
+    command: `http-server ../../${workspace}/dist/ -p ${ports[workspace]}`,
+    port: process.env.PORT,
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',
     stderr: 'pipe'
@@ -24,9 +34,9 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html', {
-      outputFolder: `../../${process.env.CEE_WORKSPACE}/results/`,
+      outputFolder: `../../${workspace}/results/`,
       open: 'never',
-      title: process.env.CEE_WORKSPACE
+      title: workspace
     }],
     ['./reporter.js']
   ]
