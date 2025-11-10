@@ -1,5 +1,7 @@
 import { Component, Host, h, Prop } from "@stencil/core";
 
+import "wc/ce-with-event";
+
 @Component({
   tag: "component-with-imperative-event",
   shadow: true
@@ -19,8 +21,8 @@ export class ComponentWithImperativeEvent {
   render() {
     return (
       <Host>
-        <div id="handled">{this.eventHandled.toString()}</div>
-        <ce-with-event id="wc" ref={el => (this.customEl = el)}></ce-with-event>
+        <div id="ce-with-imperative-event-handled">{this.eventHandled.toString()}</div>
+        <ce-with-event id="ce-with-imperative-event" ref={el => (this.customEl = el)}>Imperative</ce-with-event>
       </Host>
     );
   }

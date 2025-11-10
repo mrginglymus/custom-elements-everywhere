@@ -1,5 +1,7 @@
 import { Component, Host, h, Prop } from "@stencil/core";
 
+import 'wc/ce-with-event';
+
 @Component({
   tag: "component-with-declarative-event",
   shadow: true
@@ -14,19 +16,19 @@ export class ComponentWithDeclarativeEvent {
   render() {
     return (
       <Host>
-        <div id="lowercase">{this.lowercaseHandled.toString()}</div>
-        <div id="kebab">{this.kebabHandled.toString()}</div>
-        <div id="camel">{this.camelHandled.toString()}</div>
-        <div id="caps">{this.capsHandled.toString()}</div>
-        <div id="pascal">{this.pascalHandled.toString()}</div>
+        <div>lowercase: {this.lowercaseHandled.toString()}</div>
+        <div>kebab-case: {this.kebabHandled.toString()}</div>
+        <div>camelCase: {this.camelHandled.toString()}</div>
+        <div>CAPScase: {this.capsHandled.toString()}</div>
+        <div>PascalCase: {this.pascalHandled.toString()}</div>
         <ce-with-event
-          id="wc"
+          id="ce-with-declarative-event"
           on-lowercaseevent={_ => (this.lowercaseHandled = true)}
           on-kebab-event={_ => (this.kebabHandled = true)}
           on-camelEvent={_ => (this.camelHandled = true)}
           on-CAPSevent={_ => (this.capsHandled = true)}
           on-PascalEvent={_ => (this.pascalHandled = true)}
-        ></ce-with-event>
+        >Declarative</ce-with-event>
       </Host>
     );
   }

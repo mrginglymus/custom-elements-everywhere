@@ -1,5 +1,7 @@
 import { Component, Host, h, Prop } from "@stencil/core";
 
+import 'wc/ce-with-children';
+
 @Component({
   tag: "component-with-children-rerender",
   shadow: true
@@ -14,7 +16,7 @@ export class ComponentWithChildrenRerender {
   render() {
     return (
       <Host>
-        <ce-with-children id="wc">{this.count}</ce-with-children>
+        <ce-with-children id="ce-with-children-rerender">{this.count}</ce-with-children>
       </Host>
     );
   }

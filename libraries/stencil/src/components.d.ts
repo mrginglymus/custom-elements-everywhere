@@ -51,7 +51,7 @@ export namespace Components {
     }
     interface ComponentWithProperties {
         /**
-          * @default ["S", "t", "e", "n", "c", "i", "l"]
+          * @default ['c', 'u', 's', 't', 'o', 'm']
          */
         "arr": string[];
         /**
@@ -67,11 +67,11 @@ export namespace Components {
          */
         "num": number;
         /**
-          * @default { org: "Ionic", repo: "stencil" }
+          * @default {org: 'webcomponents', repo: 'custom-elements-everywhere'}
          */
         "obj": { org: string; repo: string; };
         /**
-          * @default "Stencil"
+          * @default "custom"
          */
         "str": string;
     }
@@ -176,7 +176,7 @@ declare namespace LocalJSX {
     }
     interface ComponentWithProperties {
         /**
-          * @default ["S", "t", "e", "n", "c", "i", "l"]
+          * @default ['c', 'u', 's', 't', 'o', 'm']
          */
         "arr"?: string[];
         /**
@@ -192,11 +192,11 @@ declare namespace LocalJSX {
          */
         "num"?: number;
         /**
-          * @default { org: "Ionic", repo: "stencil" }
+          * @default {org: 'webcomponents', repo: 'custom-elements-everywhere'}
          */
         "obj"?: { org: string; repo: string; };
         /**
-          * @default "Stencil"
+          * @default "custom"
          */
         "str"?: string;
     }
