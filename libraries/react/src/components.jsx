@@ -43,7 +43,7 @@ export const ComponentWithChildrenRerender = () => {
 
   return (
     <div>
-      <ce-with-children id="ce-with-children-renderer">{count}</ce-with-children>
+      <ce-with-children id="ce-with-children-rerender">{count}</ce-with-children>
     </div>
   );
 }

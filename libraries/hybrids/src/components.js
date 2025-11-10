@@ -41,7 +41,7 @@ define({
   count: 1,
   render: {
     value: (host) => html`
-        <ce-with-children id="ce-with-children-renderer">${host.count}</ce-with-children>
+        <ce-with-children id="ce-with-children-rerender">${host.count}</ce-with-children>
     `,
     connect(host, key, invalidate) {
       host.count += 1;

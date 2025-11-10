@@ -16,7 +16,7 @@
  */
 
 import {expect, test} from '@playwright/test';
-import { getPropOrAttr, weight} from './util';
+import {getPropOrAttr, weight} from './util';
 
 
 test.beforeEach(async ({page}) => {
@@ -28,36 +28,37 @@ test.describe("basic support", weight(3), () => {
     test("can display a Custom Element with no children", async ({page}) => {
       await expect(page.locator('#ce-without-children')).toBeAttached();
     });
+  })
 
-    test.describe('with children', () => {
-      const expectHasChildren = async (wc) => {
-        await expect(wc.locator('h1')).toHaveText('Test h1');
-        await expect(wc.locator('p')).toHaveText('Test p');
-      }
+  test.describe('with children', () => {
+    const expectHasChildren = async (wc) => {
+      await expect(wc.locator('h1')).toHaveText('Test h1');
+      await expect(wc.locator('p')).toHaveText('Test p');
+    }
 
-      test("can display a Custom Element with children in a Shadow Root", async ({page}) => {
-        await expectHasChildren(page.locator('#ce-with-children'))
-      })
-
-      test("can display a Custom Element with children in a Shadow Root and pass in Light DOM children", async ({page}) => {
-        const ce = page.locator('#ce-with-children-renderer');
-        await expectHasChildren(ce);
-        await expect(ce).toHaveText(/2/);
-      })
-
-      test('can display a Custom Element with children in the Shadow DOM and handle hiding and showing the element', async ({page}) => {
-        const ce = page.locator('#ce-with-different-views')
-        const toggle = page.getByRole('button', {name: /toggle views/i});
-
-        await expectHasChildren(ce);
-
-        await toggle.click();
-        await expect(ce).toHaveText(/dummy view/i);
-
-        await toggle.click();
-        await expectHasChildren(ce);
-      })
+    test("can display a Custom Element with children in a Shadow Root", async ({page}) => {
+      await expectHasChildren(page.locator('#ce-with-children'))
     })
+
+    test("can display a Custom Element with children in a Shadow Root and pass in Light DOM children", async ({page}) => {
+      const ce = page.locator('#ce-with-children-rerender');
+      await expectHasChildren(ce);
+      await expect(ce).toHaveText(/2/);
+    })
+
+    test('can display a Custom Element with children in the Shadow DOM and handle hiding and showing the element', async ({page}) => {
+      const ce = page.locator('#ce-with-different-views')
+      const toggle = page.getByRole('button', {name: /toggle views/i});
+
+      await expectHasChildren(ce);
+
+      await toggle.click();
+      await expect(ce).toHaveText(/dummy view/i);
+
+      await toggle.click();
+      await expectHasChildren(ce);
+    })
+
   });
 
   test.describe('attributes and properties', () => {
