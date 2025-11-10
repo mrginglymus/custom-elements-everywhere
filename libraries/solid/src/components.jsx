@@ -15,30 +15,32 @@
  * limitations under the License.
  */
 
-import { createSignal } from "solid-js";
-import { createStore } from "solid-js/store";
-import "ce-without-children";
-import "ce-with-children";
-import "ce-with-properties";
-import "ce-with-event";
+import {createSignal, Show} from "solid-js";
+import {createStore} from "solid-js/store";
+import "wc/ce-without-children";
+import "wc/ce-with-children";
+import "wc/ce-with-properties";
+import "wc/ce-with-event";
 
-export const ComponentWithoutChildren = () => <ce-without-children />;
+export const ComponentWithoutChildren = () => <ce-without-children id="ce-without-children"/>;
 
-export const ComponentWithChildren = () => <ce-with-children />;
+export const ComponentWithChildren = () => <ce-with-children id="ce-with-children"/>;
 
 export const ComponentWithChildrenRerender = () => {
   const [count, setCount] = createSignal(1);
   Promise.resolve().then(() => setCount(count() + 1));
-  return <ce-with-children>{count}</ce-with-children>;
+  return <ce-with-children id="ce-with-children-rerender">{count}</ce-with-children>;
 };
 
-export const ComponentWithDifferentViews = ({ setToggle }) => {
+export const ComponentWithDifferentViews = () => {
   const [show, setShow] = createSignal(true);
-  setToggle(() => setShow(!show()));
   return (
-    <Show when={show()} fallback={<div id="dummy">Dummy view</div>}>
-      <ce-with-children id="wc" />
-    </Show>
+    <div id="ce-with-different-views">
+      <button onClick={() => setShow(!show())}>Toggle views</button>
+      <Show when={show()} fallback={<div>Dummy view</div>}>
+        <ce-with-children/>
+      </Show>
+    </div>
   );
 };
 
@@ -46,13 +48,14 @@ export const ComponentWithProperties = () => {
   const data = {
     bool: true,
     num: 42,
-    str: "Solid",
-    arr: ["S", "o", "l", "i", "d"],
-    obj: { org: "ryansolid", repo: "solid" },
-    camelCaseObj: { label: "passed" },
+    str: 'custom',
+    arr: ['c', 'u', 's', 't', 'o', 'm'],
+    obj: {org: 'webcomponents', repo: 'custom-elements-everywhere'},
+    camelCaseObj: {label: "passed"},
   };
   return (
     <ce-with-properties
+      id="ce-with-properties"
       bool={data.bool}
       num={data.num}
       str={data.str}
@@ -69,10 +72,11 @@ export const ComponentWithUnregistered = () => {
     num: 42,
     str: "Solid",
     arr: ["S", "o", "l", "i", "d"],
-    obj: { org: "ryansolid", repo: "solid" },
+    obj: {org: "ryansolid", repo: "solid"},
   };
   return (
     <ce-unregistered
+      id="ce-with-unregistered"
       bool={data.bool}
       num={data.num}
       str={data.str}
@@ -88,8 +92,8 @@ export const ComponentWithImperativeEvent = () => {
     handleCamel = (wc) => wc.addEventListener("camelEvent", handleTestEvent);
   return (
     <>
-      <div>{eventHandled().toString()}</div>
-      <ce-with-event id="wc" ref={handleCamel} />
+      <div id="ce-with-imperative-event-handled">{eventHandled().toString()}</div>
+      <ce-with-event id="ce-with-imperative-event" ref={handleCamel}>Imperative</ce-with-event>
     </>
   );
 };
@@ -110,19 +114,19 @@ export const ComponentWithDeclarativeEvent = () => {
 
   return (
     <>
-      <div id="lowercase">{state.lowercaseHandled.toString()}</div>
-      <div id="kebab">{state.kebabHandled.toString()}</div>
-      <div id="camel">{state.camelHandled.toString()}</div>
-      <div id="caps">{state.capsHandled.toString()}</div>
-      <div id="pascal">{state.pascalHandled.toString()}</div>
+      <div>lowercase: {state.lowercaseHandled.toString()}</div>
+      <div>kebab-case: {state.kebabHandled.toString()}</div>
+      <div>camelCase: {state.camelHandled.toString()}</div>
+      <div>CAPScase: {state.capsHandled.toString()}</div>
+      <div>PascalCase: {state.pascalHandled.toString()}</div>
       <ce-with-event
-        id="wc"
+        id="ce-with-declarative-event"
         on:lowercaseevent={handleLowercaseEvent}
         on:kebab-event={handleKebabEvent}
         on:camelEvent={handleCamelEvent}
         on:CAPSevent={handleCapsEvent}
         on:PascalEvent={handlePascalEvent}
-      />
+      >Declarative</ce-with-event>
     </>
   );
 };
