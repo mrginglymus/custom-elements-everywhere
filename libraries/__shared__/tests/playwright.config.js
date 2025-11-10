@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import {defineConfig, devices} from '@playwright/test';
+import * as path from "node:path";
 
 const ports = fs.readdirSync('../../', {withFileTypes: true})
   .filter(d => d.isDirectory() && !d.name.startsWith('__'))
@@ -8,7 +9,7 @@ const ports = fs.readdirSync('../../', {withFileTypes: true})
     return acc;
   }, {})
 
-const workspace = process.env.CEE_WORKSPACE;
+const workspace = path.basename(process.env.INIT_CWD);
 
 export default defineConfig({
   use: {

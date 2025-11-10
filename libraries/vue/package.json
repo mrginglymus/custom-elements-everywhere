@@ -35,10 +35,7 @@
       "command": "pnpm run --filter tests test",
       "output": [
         "results"
-      ],
-      "env": {
-        "CEE_WORKSPACE": "vue"
-      }
+      ]
     },
     "build": {
       "dependencies": [

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from "node:path";
 
 
 export default class CEEReporter {
@@ -15,9 +16,9 @@ export default class CEEReporter {
   }
 
   onEnd(result) {
-    const frameworkDir = `../../${process.env.CEE_WORKSPACE}`
+    const workspace = `../../${path.basename(process.env.INIT_CWD)}`;
 
-    const packageJson = JSON.parse(fs.readFileSync(`${frameworkDir}/package.json`, 'utf-8'));
+    const packageJson = JSON.parse(fs.readFileSync(`${workspace}/package.json`, 'utf-8'));
     const pkg = packageJson.library_package
     const version = packageJson.dependencies[pkg];
 
@@ -30,8 +31,8 @@ export default class CEEReporter {
     const weightedFailed = this.results.weight.failed ?? 0;
     const totalWeight = weightedPassed + weightedFailed;
 
-    fs.mkdirSync(`${frameworkDir}/results/`, {recursive: true})
-    fs.writeFileSync(`${frameworkDir}/results/results.json`, JSON.stringify({
+    fs.mkdirSync(`${workspace}/results/`, {recursive: true})
+    fs.writeFileSync(`${workspace}/results/results.json`, JSON.stringify({
       summary: {
         success: basicPassed + advancedPassed,
         failed: basicFailed + advancedFailed,
@@ -56,7 +57,7 @@ export default class CEEReporter {
         version
       }
     }, null, 2));
-    fs.writeFileSync(`${frameworkDir}/results/results.html`, `
+    fs.writeFileSync(`${workspace}/results/results.html`, `
 <html>
 <head>
     <meta http-equiv="refresh" content="0; url=./index.html">

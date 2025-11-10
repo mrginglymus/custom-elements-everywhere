@@ -47,10 +47,7 @@
       "command": "pnpm run --filter tests test",
       "output": [
         "results"
-      ],
-      "env": {
-        "CEE_WORKSPACE": "stencil"
-      }
+      ]
     },
     "build": {
       "dependencies": [
